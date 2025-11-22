@@ -1,0 +1,505 @@
+:root {
+  --cell: 30px;
+}
+
+/* === LAYOUT === */
+#classicBoard {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+#lava {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none !important;
+}
+
+/* === GAME CARD === */
+#gameCard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: calc(100vw - 50px);
+  padding: 10px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ff99cc 0%, #cc99ff 25%, #99ccff 50%, #99ffcc 75%, #ff99cc 100%);
+  background-size: 300% 300%;
+  animation: drift 40s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { background-position: 0 0; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* === BOARD === */
+.boardWrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0.5rem;
+  z-index: 1;
+  pointer-events: auto !important;
+}
+
+/* === GRID === */
+#grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 100%;
+  gap: 8px;
+  z-index: 2;
+  user-select: none;
+  touch-action: none;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  width: var(--cell);
+  height: var(--cell);
+  font-weight: 900;
+  font-size: calc(var(--cell) * 0.56);
+  color: #101318;
+  background: transparent;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.cell.sel {
+  background: transparent;
+  /* outline: 3px solid var(--sel-color, #9adafe); */
+  transform: scale(1.08);
+  transition: outline-color 0.2s ease;
+}
+
+/* === PILLS LAYER === */
+#pills {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none !important;
+  overflow: visible;
+}
+
+/* === WORD LIST & BAR === */
+#wordBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  color: #000;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06) inset, 0 6px 16px rgba(0,0,0,.05);
+  position: relative;
+  z-index: 350;
+}
+
+#wordList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  z-index: 3;
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  z-index: 2;
+}
+
+.words span {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.words span.done {
+  color: #8d8d8d;
+  text-decoration: line-through;
+}
+
+/* === MESSAGE CLOUD === */
+#msg {
+  display: grid;
+  place-items: center;
+  min-height: 45px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.msg-cloud {
+  --h: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 16px;
+  min-width: 80px;
+  border-radius: var(--h);
+  background: #f2f2f2;
+  color: goldenrod;
+  font: 900 1.1rem/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 3px 8px rgba(0,0,0,.25);
+  opacity: 0;
+  transform: translateY(40%) scale(0.8);
+  transition: opacity 0.25s ease-out, transform 0.4s ease-out;
+}
+
+.msg-cloud.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.msg-cloud.fade {
+  animation: msgFloatUp .9s ease forwards;
+}
+
+@keyframes msgFloatUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(0) scale(1); }
+}
+
+/* === LEVEL SCREEN === */
+.level-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 200;
+}
+
+.level-screen.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.level-card {
+  background: radial-gradient(circle at 50% 40%, #ffffff, #f2f2f2 60%);
+  border-radius: 22px;
+  padding: 32px 48px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  transform: scale(0.85);
+  transition: transform 0.5s cubic-bezier(.2,1.4,.3,1);
+}
+
+.level-screen.show .level-card {
+  transform: scale(1);
+}
+
+.level-card h2 {
+  font-size: 2.4rem;
+  margin: 0 0 0.25em;
+  background: linear-gradient(90deg,#ffa,#ff9f7f,#9fff9f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.level-card p {
+  font-size: 1.2rem;
+  color: #444;
+  margin: 0;
+}
+
+/* === HUD === */
+#hud {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: center;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 700;
+  font-family: "Gill Sans", sans-serif;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(4px);
+  margin-bottom: 6px;
+}
+
+.hud-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  padding: 6px 9px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.hud-btn:hover { transform: scale(1.1); }
+
+.hud-pill {
+  background: rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  margin: 0 4px;
+}
+
+/* === HINT BUTTON === */
+#hintWrap {
+  position: relative;
+  z-index: 120;
+  margin-top: 10px;
+}
+
+.hint-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at 50% 40%, #f8f6d3, #ffcc33);
+  font-size: 1.5rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.2s;
+  color: #333;
+  font-weight: bold;
+}
+
+.hint-btn:hover  { filter: brightness(1.1); transform: scale(1.15); }
+.hint-btn:active { transform: scale(0.94); }
+
+/* === MONSTER ANIMATIONS === */
+#monsterTransition {
+  position: absolute;
+  inset: 0;
+  left: 0px;
+  top: 20px;
+  z-index: 800; /* lower than eyes but above the board background */
+  pointer-events: none;
+  display: none;
+  overflow: visible; /* so teeth can slide in/out */
+  background: transparent; /* no background blocking */
+}
+
+#monsterEyes {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 500;
+}
+
+#monsterTeethBottom.chomp {
+  /* tweak until it looks right */
+  transform: translateY(70px);
+  transition: transform 0.5s cubic-bezier(0.45,0,0.25,.5);
+}
+/* 
+#grid.eaten, #pills.eaten {
+  filter: blur(3px) brightness(0.7);
+  opacity: 0;
+  transition: all 0.5s ease;
+} */
+#grid, #pills {
+  /* transition: height 0.6s ease, opacity 0.6s ease; */
+  transition: height 0.6s ease;
+  overflow: hidden;
+}
+#grid.eaten, #pills.eaten {
+  height: 0 !important;
+  /* opacity: 0.5; */
+}
+
+
+#monsterEyes .eye {
+  width: 40px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px #000 inset;
+  position: relative;
+}
+
+#monsterEyes .eye::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #000;
+  border-radius: 50%;
+  top: 20px;
+  left: 10px;
+  animation: blink 5s infinite;
+}
+
+@keyframes blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+.monster-teeth-wrap {
+    position: absolute;
+    width: calc(100% - 10px);
+    left: 0px;
+    top: 74px;
+    /* outline: 1px solid red; */
+    height: -40px;
+}
+
+.monster-teeth {
+    position: absolute;
+    left: 5px;
+    top: 36px;
+    width: calc(100% - 10px);
+    height: 65px;
+    pointer-events: none;
+    z-index: 90;
+    /* transition: transform 0.8s cubic-bezier(0.45, 0, 0.25, 1); */
+    /* border-top: 2px solid black; */
+}
+
+#monsterTeethTop {
+    height: 0px;
+    /* transform: translateY(-100%);
+    transform-origin: top center; */
+}
+#monsterTeethBottom {
+  position: relative;
+  height: 62px;
+  /* transform: translateY(-600px);
+  transform-origin: bottom center; */
+}
+/* #grid, #pills {
+  transition: height 0.6s ease, opacity 0.6s ease;
+  overflow: hidden;
+}
+#grid.eaten, #pills.eaten {
+  height: 0 !important;
+  opacity: 0.5;
+} */
+/* Base position — closed mouth, hidden below the grid */
+#monsterTeethBottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  bottom: -325px; /* Start off-screen */
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.45, 0, 0.25, 1);
+}
+
+#monsterTeethBottom.chomp {
+  transform: translateY(-350px); /* Move upward to meet top teeth */
+}
+
+/* #monsterTeethTop.open,
+#monsterTeethBottom.open {
+  transform: translateY(0);
+} */
+/* Animate to message area height (~70px) when open */
+/* #monsterTeethTop.open {
+  height: 70px;
+  transform: translateY(0);
+}
+
+#monsterTeethBottom.open {
+  height: 70px;
+  transform: translateY(0);
+} */
+
+/* Banner */
+#monsterBanner {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+#monsterBanner h2 {
+  font-size: 1.8rem;
+  color: #ff5c5c;
+  margin: 0;
+  width: calc(100vw - 150px);
+}
+
+#bonusTimer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* --- Fade-out puzzle content --- */
+/* #grid.fade-out, */
+#wordList.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+
+/* === CONFETTI === */
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 80;
+}
+
+#confetti i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  opacity: .9;
+  animation: fall 1.2s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: .2;
+  }
+}
