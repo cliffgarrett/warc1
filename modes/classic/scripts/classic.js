@@ -325,36 +325,58 @@ function buildGridFromJSON(data) {
   }
 
   stage.innerHTML = `
+  <link rel="stylesheet" href="./modes/classic/styles/gobbles.css">
     <section id="classicBoard">
       <canvas id="lava"></canvas>
       ${renderHUD()}
       <div id="gameCard">
-        <div id="wordBar">
-          <div id="wordList" class="words"></div>
+        <div id="gobblesFaceLayer">
+          <div id="furBg"></div>
+          <div id="monsterEyes" class="eye-neutral">
+            <div class="eye left"><div class="pupil"></div></div>
+            <div class="eye right"><div class="pupil"></div></div>
+          </div>
         </div>
-        <div id="msg">&nbsp;</div>
+                <div id="mouth">
+          <div id="mouthInner">
+
+                      <!-- Top teeth first thing in mouth -->
+            <div id="teethTopWrap" class="teethWrap">
+              <img id="teethTop" src="./modes/classic/assets/img/monster-top.svg"
+                   alt="Top Teeth">
+            </div>
+
+            <!-- Roof of mouth (word bar) -->
+            <div id="mouthRoof">
+              <div id="title"></div>
+              <div id="wordBar">
+                <div id="wordList" class="words"></div>
+              </div>
+            </div>
+
+                        <!-- Throat + uvula + tongue background -->
+            <div id="throat">
+              <div id="uvula"></div>
+              <div id="tongue"></div>
+            </div>
+
+            <!-- Speech lane -->
+            <div id="msg"></div>
+            <div id="liveSelect"></div>
+
         <div class="boardWrap">
           <svg id="pills" class="pills"></svg>
           <div id="grid" class="grid"></div>
         </div>
         <!-- Monster Transition Layer -->
-        <div id="monsterTransition">
-          <div id="monsterEyes">
-            <div class="eye left"></div>
-            <div class="eye right"></div>
-          </div>
-<div class="monster-teeth">
-          <div id="monsterTeethTop">
-            <img src="modes/classic/assets/img/monster-top.svg" id="teethTop" class="monster-teeth">
-          </div>
-          <div id="monsterTeethBottom">
-            <img src="modes/classic/assets/img/monster-bottom.svg" id="teethBottom" class="monster-teeth">
-          </div>
-</div>
-          <div id="monsterBanner">
-            <h2 id="rooTitle" class="scramble">O-ROAERNAG-</h2>
-            <div id="bonusTimer">30</div>
-          </div>
+
+            <!-- Bottom teeth in same mouth container -->
+            <div id="teethBottomWrap" class="teethWrap">
+              <img id="teethBottom" src="./modes/classic/assets/img/monster-bottom.svg"
+                   alt="Bottom Teeth">
+            </div>
+
+        </div>
         </div>
       </div>
       <!-- Hint Button -->
@@ -646,6 +668,7 @@ export async function start() {
   </div>
 
     <!-- Game Card -->
+    <1--
     <div id="gameCard">
       <div id="wordBar">
         <div id="wordList" class="words"></div>
@@ -657,6 +680,60 @@ export async function start() {
         <div id="grid" class="grid"></div>
       </div>
     </div>
+    -->
+      <div id="gameCard">
+        <!-- Hair + eyes strip -->
+        <div id="gobblesFaceLayer">
+          <div id="furBg"></div>
+          <div id="monsterEyes" class="eye-neutral">
+            <div class="eye left"><div class="pupil"></div></div>
+            <div class="eye right"><div class="pupil"></div></div>
+          </div>
+        </div>
+
+        <!-- Mouth wrapper (fixed footprint) -->
+        <div id="mouth">
+          <div id="mouthInner">
+            <!-- Top teeth first thing in mouth -->
+            <div id="teethTopWrap" class="teethWrap">
+              <img id="teethTop" src="./modes/classic/assets/img/monster-top.svg"
+                   alt="Top Teeth">
+            </div>
+
+            <!-- Roof of mouth (word bar) -->
+            <div id="mouthRoof">
+              <div id="title"></div>
+              <div id="wordBar">
+                <div id="wordList" class="words"></div>
+              </div>
+            </div>
+
+            <!-- Throat + uvula + tongue background -->
+            <div id="throat">
+              <div id="uvula"></div>
+              <div id="tongue"></div>
+            </div>
+
+            <!-- Speech lane -->
+            <div id="msg"></div>
+            <div id="liveSelect"></div>
+
+            <!-- Grid / belly -->
+            <div class="boardWrap">
+            <div class="capsuleLayer"></div>
+            <div id="grid" class="grid"></div>
+            </div>
+
+            <!-- Bottom teeth in same mouth container -->
+            <div id="teethBottomWrap" class="teethWrap">
+              <img id="teethBottom" src="./modes/classic/assets/img/monster-bottom.svg"
+                   alt="Bottom Teeth">
+            </div>
+          </div>
+        </div>
+
+        <!-- Level panel / misc under chin -->
+      </div>
 
     <!-- Hint Button -->
     <div id="hintWrap">
@@ -687,7 +764,7 @@ export async function start() {
   SoundManager.stopAll();
   SoundManager.load('classic', `./modes/classic/assets/audio/${S.musicFile}`);
   if (S.musicOn) SoundManager.play('classic', true);
-SoundManager.load('growl', './modes/classic/assets/audio/growl.mp3');
+  SoundManager.load('growl', './modes/classic/assets/audio/growl.mp3');
 
   // 4️⃣ Build the game UI
   buildGridFromJSON(data);
@@ -715,28 +792,28 @@ SoundManager.load('growl', './modes/classic/assets/audio/growl.mp3');
   // window.addEventListener('resize', resizePillsToGrid);
 
   // --- DEBUG: manual win trigger ---
-if (!document.getElementById("btnTestVictory")) {
-  const btn = document.createElement("button");
-  btn.id = "btnTestVictory";
-  btn.textContent = "🧩 Test Victory";
-  Object.assign(btn.style, {
-    position: "fixed",
-    bottom: "1rem",
-    right: "1rem",
-    zIndex: 9999,
-    background: "#4CAF50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "10px",
-    padding: "10px 16px",
-    fontSize: "1rem",
-    boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
-    cursor: "pointer",
-    zIndex:99999
-  });
-  btn.onclick = victory;
-  document.body.appendChild(btn);
-}
+  if (!document.getElementById("btnTestVictory")) {
+    const btn = document.createElement("button");
+    btn.id = "btnTestVictory";
+    btn.textContent = "🧩 Test Victory";
+    Object.assign(btn.style, {
+      position: "fixed",
+      bottom: "1rem",
+      right: "1rem",
+      zIndex: 9999,
+      background: "#4CAF50",
+      color: "#fff",
+      border: "none",
+      borderRadius: "10px",
+      padding: "10px 16px",
+      fontSize: "1rem",
+      boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
+      cursor: "pointer",
+      zIndex: 99999
+    });
+    btn.onclick = victory;
+    document.body.appendChild(btn);
+  }
 
 }
 
@@ -831,6 +908,27 @@ function hookInput(gridEl) {
       osc.stop(toneCtx.currentTime + 0.12);
     } catch (err) {
       console.warn("Tone play failed:", err);
+    }
+  }
+
+  function playMissTone() {
+    try {
+      if (!toneCtx) toneCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = toneCtx.createOscillator();
+      const gain = toneCtx.createGain();
+
+      osc.type = "square";
+      osc.frequency.value = 220; // low thunk
+      const now = toneCtx.currentTime;
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+      osc.connect(gain);
+      gain.connect(toneCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.14);
+    } catch (err) {
+      console.warn("Miss tone failed:", err);
     }
   }
 
@@ -945,7 +1043,7 @@ function hookInput(gridEl) {
     } else {
       // ❌ Incorrect word
       msgCloud(null, false);
-
+      playMissTone();
       // optional: clear temporary lines immediately
       const svg = document.getElementById("pills");
       svg?.querySelectorAll(".temp").forEach(el => el.remove());
@@ -1013,7 +1111,7 @@ function cellRect(id) {
   const host = document.querySelector('.boardWrap').getBoundingClientRect();
   //const pad = 6; // 🟡 adjust for pill spacing
   return {
-    x: r.left - host.left + r.width / 4.5,
+    x: r.left - host.left + r.width / 4.2,
     y: r.top - host.top + r.height / 4.2,
     //rx: r.width / 2 - pad,
     //ry: r.height / 2 - pad
@@ -1023,19 +1121,26 @@ function cellRect(id) {
 function drawPillSegment(a, b, color, isTemp = false) {
   const A = cellRect(a), B = cellRect(b);
   if (!A || !B) return;
+
   const svg = document.getElementById("pills");
   const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
   line.setAttribute("x1", A.x);
   line.setAttribute("y1", A.y);
   line.setAttribute("x2", B.x);
   line.setAttribute("y2", B.y);
   line.setAttribute("stroke", color);
-  line.setAttribute("stroke-width", "28"); // slightly thicker for cleaner curves
+
+  // Thickness based on cell size (feels nicer on different grids)
+  const cellSize = parseFloat(getComputedStyle(document.documentElement)
+    .getPropertyValue("--cell")) || 30;
+  line.setAttribute("stroke-width", String(cellSize * 1.1));
+
   line.setAttribute("stroke-linecap", "round");
   line.classList.toggle("temp", isTemp);
   svg.appendChild(line);
 }
-
+//:contentReference[oaicite:8]{index=8}
 
 // function drawPillSegment(aId, bId, color, isTemp=false){
 //   const A = cellRectInGrid(aId), B = cellRectInGrid(bId);
@@ -1194,16 +1299,41 @@ function liveMsg(text, color = "#000") {
   m.classList.add('show');
 }
 
+function playVictoryTone() {
+  try {
+    if (!toneCtx) toneCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = toneCtx.currentTime;
+
+    const osc = toneCtx.createOscillator();
+    const gain = toneCtx.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(660, now);
+    osc.frequency.linearRampToValueAtTime(990, now + 0.25);
+
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+    osc.connect(gain);
+    gain.connect(toneCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.32);
+  } catch (err) {
+    console.warn("Victory tone failed:", err);
+  }
+}
+
 async function victory() {
   console.log("Victory reached!");
   confetti();
 
+  try { playVictoryTone?.(); } catch { }
   SoundManager.stopAll();
 
   //SoundManager.load('victory', `./modes/classic/assets/audio/victory.mp3`);
   // SoundManager.load('victory', `./modes/classic/assets/audio/win.mp3`);
   // SoundManager.play('victory');
-   //SoundManager.play('growl');
+  //SoundManager.play('growl');
   S.tickets += 3;
   msgCloud("🧩 Puzzle Complete!", true);
 
