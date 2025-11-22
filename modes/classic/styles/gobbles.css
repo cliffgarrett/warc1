@@ -616,14 +616,14 @@
 #throat {
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 35px;
   background: radial-gradient(circle at 50% 60%, #3a0020 0%, #000000 60%);
   overflow: visible;
 }
 
 #uvula {
   position: absolute;
-  top: 0;
+  top: -5px;
   left: 50%;
   width: 16px;
   height: 32px;
@@ -637,7 +637,7 @@
 
 #tongue {
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 50%;
   width: 90%;
   height: 500px;

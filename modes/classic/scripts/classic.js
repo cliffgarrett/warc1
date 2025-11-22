@@ -812,7 +812,8 @@ export async function start() {
       fontSize: "1rem",
       boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
       cursor: "pointer",
-      zIndex: 99999
+      zIndex: 99999,
+      display: "none"
     });
     btn.onclick = victory;
     document.body.appendChild(btn);
