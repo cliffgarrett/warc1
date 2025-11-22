@@ -104,14 +104,20 @@ export function createUnscrambleSlots(targetWord) {
 
 export async function transitionToUnscramble() {
   const layer = document.getElementById("monsterTransition");
-  const topTeeth = document.getElementById("monsterTeethTop");
-  const bottomTeeth = document.getElementById("monsterTeethBottom");
+  // const topTeeth = document.getElementById("monsterTeethTop");
+  // const bottomTeeth = document.getElementById("monsterTeethBottom");
+  const topTeeth = document.getElementById("teethTopWrap");
+  const bottomTeeth = document.getElementById("teethBottomWrap");
   const eyes = document.getElementById("monsterEyes");
   const banner = document.getElementById("monsterBanner");
+  const title = document.getElementById("title");
   positionBottomTeeth();
 
     // fade out puzzle
   //grid.classList.add('fade-out');
+  topTeeth.classList.add('extend');
+  bottomTeeth.classList.add('extend');
+  title.classList.add('fade-out');
   wordList.classList.add('fade-out');
 grid.classList.add('eaten');
 pills.classList.add('eaten');

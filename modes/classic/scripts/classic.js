@@ -689,8 +689,14 @@ export async function start() {
         <div id="gobblesFaceLayer">
           <div id="furBg"></div>
           <div id="monsterEyes" class="eye-neutral">
-            <div class="eye left"><div class="pupil"></div></div>
-            <div class="eye right"><div class="pupil"></div></div>
+            <div class="eye left">
+              <div class="pupil"></div>
+              <div class="eyelid"></div>
+            </div>
+            <div class="eye right">
+              <div class="pupil"></div>
+              <div class="eyelid"></div>
+            </div>
           </div>
         </div>
 
@@ -1331,12 +1337,12 @@ async function victory() {
   console.log("Victory reached!");
   confetti();
 
-  try { playVictoryTone?.(); } catch { }
+  //try { playVictoryTone?.(); } catch { }
   SoundManager.stopAll();
 
   //SoundManager.load('victory', `./modes/classic/assets/audio/victory.mp3`);
-  // SoundManager.load('victory', `./modes/classic/assets/audio/win.mp3`);
-  // SoundManager.play('victory');
+   SoundManager.load('victory', `./modes/classic/assets/audio/win.mp3`);
+   SoundManager.play('victory');
   //SoundManager.play('growl');
   S.tickets += 3;
   msgCloud("🧩 Puzzle Complete!", true);
