@@ -314,6 +314,7 @@ function buildGridFromJSON(data) {
   S.rows = data.rows || 6;
   S.cols = data.cols || 6;
   S.words = Array.isArray(data.words) ? data.words : [];
+  S.title = data.title ?? `Level ${level}`;
   S.fillChars = data.fillChars || "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   S.jumble = data.jumble || null;
 
@@ -396,6 +397,8 @@ function buildGridFromJSON(data) {
     const el = document.createElement("span");
     el.textContent = word;
     wordList.appendChild(el);
+    const titleEl = document.getElementById('title');
+    if (titleEl) titleEl.textContent = S.title;
   });
 
   // --- Build letter grid ---

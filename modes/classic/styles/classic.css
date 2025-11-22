@@ -101,7 +101,7 @@ body {
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   width: 100%;
-  /* gap: 8px; */
+  gap: 0px;
   z-index: 2;
   user-select: none;
   touch-action: none;
@@ -147,7 +147,8 @@ body {
   pointer-events: none !important;
   overflow: visible;
   margin: auto;
-  padding: 0 0 0 7px;
+  margin-left: 5px;
+  margin-top: 4px;
 }
 
 /* === WORD LIST & BAR === */
