@@ -110,11 +110,19 @@ export async function transitionToUnscramble() {
   const bottomTeeth = document.getElementById("teethBottomWrap");
   const eyes = document.getElementById("monsterEyes");
   const banner = document.getElementById("monsterBanner");
+  const mouthRoof = document.getElementById("mouthRoof");
   const title = document.getElementById("title");
+  const rooarangePanel = document.getElementById("rooarange-panel");
+  const levelPanel = document.getElementById("level-panel");
   positionBottomTeeth();
 
     // fade out puzzle
   //grid.classList.add('fade-out');
+  setTimeout(() => {
+    mouthRoof.classList.add('hide'); {
+    }; // <-- Haptic pulse when jaws snap open
+  }, 1000);
+  levelPanel.classList.add('expose');
   topTeeth.classList.add('extend');
   bottomTeeth.classList.add('extend');
   title.classList.add('fade-out');

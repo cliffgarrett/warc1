@@ -334,8 +334,14 @@ function buildGridFromJSON(data) {
         <div id="gobblesFaceLayer">
           <div id="furBg"></div>
           <div id="monsterEyes" class="eye-neutral">
-            <div class="eye left"><div class="pupil"></div></div>
-            <div class="eye right"><div class="pupil"></div></div>
+            <div class="eye left">
+              <div class="pupil"></div>
+              <div class="eyelid"></div>
+            </div>
+            <div class="eye right">
+              <div class="pupil"></div>
+              <div class="eyelid"></div>
+            </div>
           </div>
         </div>
                 <div id="mouth">
@@ -377,8 +383,12 @@ function buildGridFromJSON(data) {
                    alt="Bottom Teeth">
             </div>
 
+
+            </div>
         </div>
-        </div>
+            <!-- Level panel / misc under chin -->
+            <div id="level-panel">x</div>
+            <div id="rooarange-panel"></div>
       </div>
       <!-- Hint Button -->
       <div id="hintWrap">
@@ -742,6 +752,8 @@ export async function start() {
         </div>
 
         <!-- Level panel / misc under chin -->
+        <div id="level-panel">x</div>
+        <div id="rooarange-panel"></div>
       </div>
 
     <!-- Hint Button -->
@@ -818,8 +830,8 @@ export async function start() {
       fontSize: "1rem",
       boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
       cursor: "pointer",
-      zIndex: 99999,
-      display: "none"
+      zIndex: 99999
+      //,display: "none"
     });
     btn.onclick = victory;
     document.body.appendChild(btn);
